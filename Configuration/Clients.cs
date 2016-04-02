@@ -44,7 +44,7 @@ namespace Microbrewit.AuthServer.Configuration
                     ClientName = "Microbrewit",
                     ClientUri = "http://microbrew.it",
                     
-                    Flow = Flows.ClientCredentials,
+                    Flow = Flows.ResourceOwner,
                     ClientSecrets = new List<Secret>
                     {
                         new Secret("secret".Sha256())
