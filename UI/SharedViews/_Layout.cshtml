@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Microbrew.it AuthServer</title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico"/>
+    <link rel="stylesheet" href="~/css/navigation.css"/>
+    <link rel="stylesheet" href="~/css/user.css"/>
+    <link rel="stylesheet" href="~/css/main.css" />
+</head>
+<body>
+    <div id="main-navigation">
+        <ul class="inner-wrapper">
+            <li class="logo-text">
+                <a href="~/">
+                    Microbrew.it Authentication Server
+                </a>
+            </li>
+        </ul>
+            <ul class="inner-wrapper" show-if="User.Identity.IsAuthenticated">
+                <li>
+                    <a href="#">@User.Identity.Name <b class="caret"></b></a>
+                    <ul>
+                        <li><a asp-route="Logout">Logout</a></li>
+                        <li></li>
+                        <li><a asp-route="Login">Login With Different Account</a></li>
+                    </ul>
+                </li>
+            </ul>
+    </div>
+    
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
