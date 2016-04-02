@@ -7,6 +7,6 @@ RUN ["dnu", "restore"]
 COPY . /app
 RUN ["dnu","restore"]
 
-EXPOSE 3000
+EXPOSE 22530
 
 CMD ["dnx", "-p", "project.json", "web"]
