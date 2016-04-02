@@ -7,6 +7,6 @@ RUN ["dnu", "restore"]
 COPY . /app
 RUN ["dnu","restore"]
 
-EXPOSE 3000
+EXPOSE 127.0.0.1:5001:5001
 
 CMD ["dnx", "-p", "project.json", "web"]
