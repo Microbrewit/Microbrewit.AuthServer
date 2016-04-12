@@ -2,10 +2,14 @@
 using System.Security.Cryptography.X509Certificates;
 using Microbrewit.AuthServer.Configuration;
 using Microbrewit.AuthServer.Extensions;
+using Microbrewit.AuthServer.Settings;
 using Microbrewit.AuthServer.UI;
 using Microbrewit.AuthServer.UI.Login;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http.Features;
+using Microsoft.AspNet.Server.Features;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
@@ -19,10 +23,16 @@ namespace Microbrewit.AuthServer
         public Startup(IApplicationEnvironment environment)
         {
             _environment = environment;
+            var builder = new ConfigurationBuilder()
+               .AddJsonFile("appsettings.json")
+               .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
+        public IConfigurationRoot Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ServerSettings>(Configuration.GetSection("ServerSettings"));
             var cert = new X509Certificate2(Path.Combine(_environment.ApplicationBasePath, "idsrv4test.pfx"), "idsrv3test");
 
             var builder = services.AddIdentityServer(options =>
@@ -52,9 +62,9 @@ namespace Microbrewit.AuthServer
 
             app.UseDeveloperExceptionPage();
             app.UseIISPlatformHandler();
-
+            app.UseMiddleware<Middlevare.BaseUrlMiddleware>();
             app.UseIdentityServer();
-
+            
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
         }
