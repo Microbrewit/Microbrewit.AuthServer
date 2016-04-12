@@ -1,14 +1,15 @@
 ﻿using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using IdentityServer4.Core.Services;
+using IdentityServer4.Core.Validation;
 using Microbrewit.AuthServer.Configuration;
-using Microbrewit.AuthServer.Extensions;
+using Microbrewit.AuthServer.Service;
 using Microbrewit.AuthServer.Settings;
 using Microbrewit.AuthServer.UI;
 using Microbrewit.AuthServer.UI.Login;
+using Microbrewit.AuthSever.Service;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http.Features;
-using Microsoft.AspNet.Server.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -40,10 +41,13 @@ namespace Microbrewit.AuthServer
                 options.SigningCertificate = cert;
             });
 
+            builder.Services.AddTransient<IUserRepository,UserRepository>();
+            builder.Services.AddTransient<IProfileService,UserProfileService>();
+            builder.Services.AddTransient<IResourceOwnerPasswordValidator,UserResourceOwnerPasswordValidator>();
             builder.AddInMemoryClients(Clients.Get());
             builder.AddInMemoryScopes(Scopes.Get());
-            builder.AddInMemoryUsers(Users.Get());
-            builder.AddCustomGrantValidator<CustomGrantValidator>();
+            //builder.AddInMemoryUsers(Users.Get());
+            //builder.AddCustomGrantValidator<CustomGrantValidator>();
 
             // for the UI
             services
