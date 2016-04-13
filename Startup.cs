@@ -38,7 +38,7 @@ namespace Microbrewit.AuthServer
              
             var builder = services.AddIdentityServer(options =>
             {
-                //options.SigningCertificate = cert;
+                options.SigningCertificate = cert;
             });
 
             builder.Services.AddTransient<IUserRepository,UserRepository>();
