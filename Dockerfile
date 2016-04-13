@@ -9,4 +9,5 @@ RUN ["dnu","restore"]
 
 EXPOSE 5001
 
+ENTRYPOINT ["/app/docker/entrypoint.sh"]
 CMD ["dnx", "-p", "project.json", "web"]
