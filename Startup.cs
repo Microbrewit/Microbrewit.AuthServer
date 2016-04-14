@@ -35,7 +35,7 @@ namespace Microbrewit.AuthServer
         {
             services.Configure<ServerSettings>(Configuration.GetSection("ServerSettings"));
             var cert = new X509Certificate2(Path.Combine(_environment.ApplicationBasePath, "idsrv4test.pfx"), "idsrv3test");
-
+             
             var builder = services.AddIdentityServer(options =>
             {
                 options.SigningCertificate = cert;
