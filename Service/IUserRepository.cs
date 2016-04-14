@@ -6,5 +6,6 @@ namespace Microbrewit.AuthSever.Service
     public interface IUserRepository
     {
         Task<User> GetSingleAsync(string userId);
+        Task<User> GetSingleByUsername(string username);
     }
 }

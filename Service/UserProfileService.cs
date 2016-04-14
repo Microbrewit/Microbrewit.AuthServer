@@ -19,9 +19,9 @@ namespace Microbrewit.AuthServer.Service
         }
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            var user = await _userRepository.GetSingleAsync(context.Subject.GetSubjectId());
+            var user = await _userRepository.GetSingleByUsername(context.Subject.GetSubjectId());
             var claims = new List<Claim>{
-                new Claim(JwtClaimTypes.Subject, user.Username),
+                new Claim(JwtClaimTypes.Subject, user.UserId),
             };
 
             //claims.AddRange(user.Claims);
@@ -31,21 +31,14 @@ namespace Microbrewit.AuthServer.Service
             // }
 
             context.IssuedClaims = claims;
-
-            return;
         }
 
         public async Task IsActiveAsync(IsActiveContext context)
         {
              if (context.Subject == null) throw new ArgumentNullException("subject");
 
-            var user = await _userRepository.GetSingleAsync(context.Subject.GetSubjectId());
-
-         
-            
+            var user = await _userRepository.GetSingleByUsername(context.Subject.GetSubjectId());
             context.IsActive = (user != null);
-
-            return;
         }
     }
 }

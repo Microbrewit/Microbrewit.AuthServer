@@ -43,7 +43,7 @@ namespace Microbrewit.AuthServer.Configuration
                     ClientId = "microbrewit",
                     ClientName = "Microbrewit",
                     ClientUri = "http://microbrew.it",
-                    
+                    AccessTokenType = AccessTokenType.Reference,
                     Flow = Flows.ResourceOwner,
                     ClientSecrets = new List<Secret>
                     {

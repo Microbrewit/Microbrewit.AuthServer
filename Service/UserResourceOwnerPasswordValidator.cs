@@ -16,7 +16,7 @@ namespace Microbrewit.AuthSever.Service
         public async Task<CustomGrantValidationResult> ValidateAsync(string userName, string password, ValidatedTokenRequest request)
         {
             _logger.LogInformation($"Username {userName}");
-            var user = await _userRepository.GetSingleAsync(userName);
+            var user = await _userRepository.GetSingleByUsername(userName);
             
             if(user != null)
             {

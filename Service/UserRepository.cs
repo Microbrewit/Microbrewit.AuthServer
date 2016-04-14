@@ -21,10 +21,22 @@ namespace Microbrewit.AuthSever.Service
         {
             using (DbConnection context = new NpgsqlConnection(_serverSettings.DbConnection))
             {
-                var sql = "SELECT username, email, settings, gravatar, longitude, latitude, header_image_url AS HeaderImage, " +
+                var sql = "SELECT user_id AS UserId, username, email, settings, gravatar, longitude, latitude, header_image_url AS HeaderImage, " +
                           "avatar_url AS Avatar, firstname, lastname, password, salt" + 
+                          " FROM users WHERE user_id = @UserId";
+                var users = await context.QueryAsync<User>(sql,new {UserId = userId});
+                return users.SingleOrDefault();
+            }
+        }
+
+        public async Task<User> GetSingleByUsername(string username)
+        {
+            using (DbConnection context = new NpgsqlConnection(_serverSettings.DbConnection))
+            {
+                var sql = "SELECT user_id AS UserId, username, email, settings, gravatar, longitude, latitude, header_image_url AS HeaderImage, " +
+                          "avatar_url AS Avatar, firstname, lastname, password, salt" +
                           " FROM users WHERE username = @Username";
-                var users = await context.QueryAsync<User>(sql,new {Username = userId});
+                var users = await context.QueryAsync<User>(sql, new { Username = username});
                 return users.SingleOrDefault();
             }
         }
