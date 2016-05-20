@@ -66,15 +66,8 @@ namespace Microbrewit.AuthServer
             loggerFactory.AddDebug(LogLevel.Trace);
 
             app.UseDeveloperExceptionPage();
-            
-             app.UseCookieAuthentication(new CookieAuthenticationOptions
-             {
-                 AuthenticationScheme = "Temp",
-                 AutomaticAuthenticate = false,
-                 AutomaticChallenge = false
-             });
-            
-            //app.UseMiddleware<Middlevare.BaseUrlMiddleware>();
+                                
+            app.UseMiddleware<Middlevare.BaseUrlMiddleware>();
             app.UseIdentityServer();
             
             app.UseStaticFiles();
