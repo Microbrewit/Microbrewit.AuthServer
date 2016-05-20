@@ -1,13 +1,13 @@
-FROM microsoft/aspnet:1.0.0-rc1-update1
+FROM microsoft/dotnet:1.0.0-rc2-preview1
 
 WORKDIR /app
 COPY ["./project.json","/app"]
-RUN ["dnu", "restore"]
+RUN ["dotnet", "restore"]
 
 COPY . /app
-RUN ["dnu","restore"]
+RUN ["dotnet","restore"]
 
 EXPOSE 5001/tcp
 
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
-CMD ["dnx", "-p", "project.json", "web"]
+CMD ["dotnet", "restore"]
