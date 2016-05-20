@@ -18,7 +18,7 @@ namespace Microbrewit.AuthServer.Configuration
                     ClientName = "JavaScript OAuth 2.0 Client",
                     ClientUri = "http://identityserver.io",
 
-                    Flow = Flows.Implicit,
+                    AllowedGrantTypes = GrantTypes.Implicit,
                     RedirectUris = new List<string>
                     {
                         "http://localhost:28895/index.html"
@@ -44,7 +44,7 @@ namespace Microbrewit.AuthServer.Configuration
                     ClientName = "Microbrewit",
                     ClientUri = "http://microbrew.it",
                     AccessTokenType = AccessTokenType.Jwt,
-                    Flow = Flows.ResourceOwner,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientSecrets = new List<Secret>
                     {
                         new Secret("secret".Sha256())
@@ -77,7 +77,7 @@ namespace Microbrewit.AuthServer.Configuration
                     {
                         new Secret("secret".Sha256())
                     },
-                    Flow = Flows.AuthorizationCode,
+                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                      RedirectUris = new List<string>
                     {
                         "https://www.getpostman.com/oauth2/callback"

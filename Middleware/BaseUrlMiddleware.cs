@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNet.Builder;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microbrewit.AuthServer.Settings;
-using Microsoft.AspNet.Http;
-using Microsoft.Extensions.OptionsModel;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 
 namespace Microbrewit.AuthServer.Middlevare
 {

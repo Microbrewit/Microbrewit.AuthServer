@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using IdentityModel;
 using IdentityServer4.Core;
 using IdentityServer4.Core.Services;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Microbrewit.AuthServer.UI.Login
 {
