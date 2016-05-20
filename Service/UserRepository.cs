@@ -25,6 +25,12 @@ namespace Microbrewit.AuthSever.Service
                           "avatar_url AS Avatar, firstname, lastname, password, salt" + 
                           " FROM users WHERE user_id = @UserId";
                 var users = await context.QueryAsync<User>(sql,new {UserId = userId});
+                 var rolesSql = "SELECT name FROM roles r INNER JOIN user_roles ur ON r.role_id = ur.role_id WHERE ur.user_id = @UserId;";
+                 foreach (var user in users)
+                 {
+                     var roles = await context.QueryAsync<string>(rolesSql, new { UserId = user.UserId });
+                     user.Roles = roles;
+                 }
                 return users.SingleOrDefault();
             }
         }
@@ -37,6 +43,12 @@ namespace Microbrewit.AuthSever.Service
                           "avatar_url AS Avatar, firstname, lastname, password, salt" +
                           " FROM users WHERE username = @Username";
                 var users = await context.QueryAsync<User>(sql, new { Username = username});
+                 var rolesSql = "SELECT name FROM roles r INNER JOIN user_roles ur ON r.role_id = ur.role_id WHERE ur.user_id = @UserId;";
+                 foreach (var user in users)
+                 {
+                     var roles = await context.QueryAsync<string>(rolesSql, new { UserId = user.UserId });
+                     user.Roles = roles;
+                 }
                 return users.SingleOrDefault();
             }
         }

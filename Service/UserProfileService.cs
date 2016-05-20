@@ -23,6 +23,10 @@ namespace Microbrewit.AuthServer.Service
             var claims = new List<Claim>{
                 new Claim(JwtClaimTypes.Subject, user.UserId),
             };
+            foreach (var role in user.Roles)
+             {
+                 claims.Add(new Claim(JwtClaimTypes.Role,role));
+             }
 
             //claims.AddRange(user.Claims);
             // if (!context.AllClaimsRequested)
