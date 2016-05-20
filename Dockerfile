@@ -10,4 +10,4 @@ RUN ["dotnet","restore"]
 EXPOSE 5001/tcp
 
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
-CMD ["dotnet", "restore"]
+CMD ["dotnet", "run"]
