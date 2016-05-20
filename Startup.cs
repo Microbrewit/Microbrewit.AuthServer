@@ -8,34 +8,34 @@ using Microbrewit.AuthServer.Settings;
 using Microbrewit.AuthServer.UI;
 using Microbrewit.AuthServer.UI.Login;
 using Microbrewit.AuthSever.Service;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Microbrewit.AuthServer
 {
     public class Startup
     {
-        private readonly IApplicationEnvironment _environment;
+        private readonly IHostingEnvironment _environment;
 
-        public Startup(IApplicationEnvironment environment)
+        public Startup(IHostingEnvironment environment)
         {
             _environment = environment;
             var builder = new ConfigurationBuilder()
-               .AddJsonFile("appsettings.json")
-               .AddEnvironmentVariables();
+               .SetBasePath(environment.ContentRootPath)
+               .AddJsonFile("appsettings.json");
             Configuration = builder.Build();
         }
         public IConfigurationRoot Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<ServerSettings>(Configuration.GetSection("ServerSettings"));
-            var cert = new X509Certificate2(Path.Combine(_environment.ApplicationBasePath, "idsrv4test.pfx"), "idsrv3test");
-             
+           services.Configure<ServerSettings>(options => Configuration.GetSection("ServerSettings").Bind(options));
+            var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "idsrv4test.pfx"), "idsrv3test");
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             var builder = services.AddIdentityServer(options =>
             {
                 options.SigningCertificate = cert;
@@ -49,6 +49,7 @@ namespace Microbrewit.AuthServer
             //builder.AddInMemoryUsers(Users.Get());
             //builder.AddCustomGrantValidator<CustomGrantValidator>();
 
+                
             // for the UI
             services
                 .AddMvc()
@@ -61,18 +62,25 @@ namespace Microbrewit.AuthServer
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(LogLevel.Verbose);
-            loggerFactory.AddDebug(LogLevel.Verbose);
+            loggerFactory.AddConsole(LogLevel.Trace);
+            loggerFactory.AddDebug(LogLevel.Trace);
 
             app.UseDeveloperExceptionPage();
-            app.UseIISPlatformHandler();
-            app.UseMiddleware<Middlevare.BaseUrlMiddleware>();
+            
+             app.UseCookieAuthentication(new CookieAuthenticationOptions
+             {
+                 AuthenticationScheme = "Temp",
+                 AutomaticAuthenticate = false,
+                 AutomaticChallenge = false
+             });
+            
+            //app.UseMiddleware<Middlevare.BaseUrlMiddleware>();
             app.UseIdentityServer();
             
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
         }
 
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+        //public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

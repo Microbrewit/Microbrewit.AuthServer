@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Microbrewit.AuthServer.Model;
 using Microbrewit.AuthServer.Settings;
-using Microsoft.Extensions.OptionsModel;
+using Microsoft.Extensions.Options;
 using Npgsql;
 
 namespace Microbrewit.AuthSever.Service
