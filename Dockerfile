@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.0.0-rc2-preview1
+FROM microsoft/dotnet:1.0.0-preview1
 
 WORKDIR /app
 COPY ["./project.json","/app"]
