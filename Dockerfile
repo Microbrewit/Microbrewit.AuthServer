@@ -7,7 +7,7 @@ RUN ["dnu", "restore"]
 COPY . /app
 RUN ["dnu","restore"]
 
-EXPOSE 5001
+EXPOSE 5001/tcp
 
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
 CMD ["dnx", "-p", "project.json", "web"]
