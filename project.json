@@ -34,19 +34,19 @@
     "Npgsql": "3.1.0-beta0001"
   },
 
-  "tools": {
-  "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
-    "version": "1.0.0-*",
-    "imports": "portable-net45+win8+dnxcore50"
-  },
-  "Microsoft.VisualStudio.Web.CodeGeneration.Tools": {
-    "version": "1.0.0-preview1-final",
-    "imports": [
-      "dnxcore50",
-      "portable-net45+win8+dnxcore50",
-      "portable-net45+win8"
-    ]
-  }
+ "tools": {
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
+      "version": "1.0.0-preview1-final",
+      "imports": "portable-net45+win8+dnxcore50"
+    },
+   "Microsoft.VisualStudio.Web.CodeGeneration.Tools": {
+     "version": "1.0.0-preview1-final",
+     "imports": [
+       "dnxcore50",
+       "portable-net45+win8+dnxcore50",
+       "portable-net45+win8"
+     ]
+   }
   },
 
   "frameworks": {
