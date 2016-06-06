@@ -23,7 +23,7 @@ namespace Microbrewit.AuthSever.Service
             {
                 _logger.LogInformation($"User found with username {user.Username}");
                 
-                if(BCrypt.Net.BCrypt.Equals(user.Password,BCrypt.Net.BCrypt.HashPassword(password,user.Salt)))
+                if(BCrypt.Net.BCrypt.Verify(password,user.Password))
                 {  
                     _logger.LogInformation($"password match");
                     return new CustomGrantValidationResult(user.Username,"password");

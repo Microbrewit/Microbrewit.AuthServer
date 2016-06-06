@@ -40,7 +40,7 @@ namespace Microbrewit.AuthSever.Service
             using (DbConnection context = new NpgsqlConnection(_serverSettings.DbConnection))
             {
                 var sql = "SELECT user_id AS UserId, username, email, settings, gravatar, longitude, latitude, header_image_url AS HeaderImage, " +
-                          "avatar_url AS Avatar, firstname, lastname, password, salt" +
+                          "avatar_url AS Avatar, firstname, lastname, password " +
                           " FROM users WHERE username = @Username";
                 var users = await context.QueryAsync<User>(sql, new { Username = username});
                  var rolesSql = "SELECT name FROM roles r INNER JOIN user_roles ur ON r.role_id = ur.role_id WHERE ur.user_id = @UserId;";
@@ -53,5 +53,4 @@ namespace Microbrewit.AuthSever.Service
             }
         }
     }
-
 }

@@ -14,7 +14,6 @@ namespace Microbrewit.AuthServer.Model
         public string HeaderImage { get; set; }
         public string Avatar { get; set; }
         public string Password { get; set; }
-        public string Salt { get; set; }
         public IEnumerable<string> Roles { get; set; }
     }
 }
