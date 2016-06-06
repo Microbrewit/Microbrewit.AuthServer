@@ -22,8 +22,8 @@ namespace Microbrewit.AuthSever.Service
             if(user != null)
             {
                 _logger.LogInformation($"User found with username {user.Username}");
-                var hash = GenerateSaltedHash(GetBytes(password),GetBytes(user.Salt));
-                if(CompateByteArrays(hash,GetBytes(user.Password)))
+                
+                if(BCrypt.Net.BCrypt.Equals(user.Password,BCrypt.Net.BCrypt.HashPassword(password,user.Salt)))
                 {  
                     _logger.LogInformation($"password match");
                     return new CustomGrantValidationResult(user.Username,"password");
