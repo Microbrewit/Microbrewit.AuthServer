@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using IdentityServer4.Core.Validation;
 using Microsoft.Extensions.Logging;
@@ -30,38 +29,6 @@ namespace Microbrewit.AuthSever.Service
                 }
             }
             return new CustomGrantValidationResult("Invalid username or password");
-        }
-             private static byte[] GenerateSaltedHash(byte[] password, byte[] salt)
-        {
-            HashAlgorithm algorithm = new HMACSHA512();
-
-            var plainTextWithSaltBytes = new byte[password.Length + salt.Length];
-            for (int i = 0; i < password.Length; i++)
-            {
-                plainTextWithSaltBytes[i] = password[i];
-            }
-            for (int i = 0; i < salt.Length; i++)
-            {
-                plainTextWithSaltBytes[password.Length + i] = salt[i];
-            }
-            return plainTextWithSaltBytes;
-        }
-
-        private static bool CompateByteArrays(byte[] first, byte[] second)
-        {
-            if(first.Length != second.Length) return false;
-            for (int i = 0; i < first.Length; i++)
-            {
-                if(first[i] != second[i]) return false;
-            }
-            return true;
-        }
-
-        private static byte[] GetBytes(string str)
-        {
-            var bytes = new byte[str.Length*sizeof (char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes,0,bytes.Length);
-            return bytes;
         }
         
     }
