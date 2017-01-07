@@ -13,7 +13,7 @@ sed -i \
 
 # Remove default config and replace with environment variable based config.
 rm ./appsettings.json
-mv ./docker/appsettings.json ./appsettings.json
+cp ./docker/appsettings.json ./appsettings.json
 
 # Exec docker run invokers original command
 exec "$@"
